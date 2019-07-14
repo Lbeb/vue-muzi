@@ -25,15 +25,15 @@
 </template>
 
 <script>
-import comment from '../subcomponents/comment.vue' //导入评论组件
+import comment from "../subcomponents/comment.vue"; //导入评论组件
 
-import { Toast } from "mint-ui"
+import { Toast } from "mint-ui";
 export default {
   data() {
     return {
       id: this.$route.params.id,
       newsinfo: {}
-    }
+    };
   },
   created() {
     this.getInfo();
@@ -42,17 +42,17 @@ export default {
     getInfo() {
       this.$http.get("api/getnew/" + this.id).then(result => {
         if (result.body.status === 0) {
-          this.newsinfo = result.body.message[0]
+          this.newsinfo = result.body.message[0];
         } else {
           Toast("获取新闻失败...");
         }
-      })
+      });
     }
   },
-  components:{
-    'comment-box': comment
+  components: {
+    "comment-box": comment
   }
-}
+};
 </script>
 
 

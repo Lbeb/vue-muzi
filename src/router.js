@@ -11,14 +11,17 @@ import newsinfo from './components/news/NewsInfo.vue'
 // 导入photos上的组件
 import PhotosList from './components/photos/PhotosList.vue'
 import PhotosInfo from './components/photos/PhotosInfo.vue'
- 
+// 导入goods上的组件
+import GoodsList from './components/goods/GoodsList.vue'
+
+
 //创建路由对象
 const router = new VueRouter({
   routes: [{ //路由重定向
       path: '/',
       redirect: '/home'
     },
-     {
+    {
       path: '/home',
       component: HomeContainer
     },
@@ -49,6 +52,10 @@ const router = new VueRouter({
     {
       path: '/home/photosinfo/:id',
       component: PhotosInfo
+    },
+    {
+      path: '/home/goodslist',
+      component: GoodsList
     }
   ],
   linkActiveClass: 'mui-active' //覆盖默认的路由高亮的类

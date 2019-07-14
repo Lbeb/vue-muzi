@@ -14,6 +14,11 @@ Vue.filter('Time', function(dataStr, pattern= 'YYYY-MM-DD HH:mm:ss') {
    return moment(dataStr).format(pattern)
 })
 
+// // Vue 缩略图插件
+import VuePreview from 'vue-preview'
+Vue.use(VuePreview)
+
+
 
 //导入app组件
 import app from './App.vue'

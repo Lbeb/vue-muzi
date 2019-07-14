@@ -40,6 +40,7 @@ export default {
     this.getComment();
   },
   methods: {
+    //获取评论
     getComment() {
       this.$http
         .get("api/getcomments/" + this.id + "?pageindex=" + this.pageIndex)
@@ -52,6 +53,7 @@ export default {
         });
     },
     getMore() {
+      // 加载更多
       this.pageIndex++;
       this.getComment();
     },
@@ -71,19 +73,18 @@ export default {
         })
         .then(result => {
           if (result.body.status === 0) {
-            var cmt = {
+            this.commentslist.unshift({
               user_name: "muzi",
               add_time: Date.now(),
               content: this.msg.trim()
-            };
+            })
+            this.msg = "";
           } else {
             Toast("评论失败...");
           }
-          this.commentslist.unshift(cmt);
-          this.msg = "";
-        });
+        })
     }
-  },
+  } ,
   props: ["id"]
 };
 </script>
@@ -132,6 +133,12 @@ export default {
     .mui-h6 {
       font-size: 13px;
     }
+  }
+  .mui-h5 {
+    font-size: 12px;
+    display: inline-block;
+    width: 100px;
+    margin-left: -30px;
   }
 }
 </style>
