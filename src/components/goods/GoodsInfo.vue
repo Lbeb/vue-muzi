@@ -98,6 +98,14 @@ export default {
     addToShopCar() {
       //添加到购物车
       this.ballFlag = !this.ballFlag;
+      var goodsinfo = {
+        id: this.id,
+        count: this.selectedCount,
+        price: this.goodsinfo.sell_price,
+        selected: true
+      }
+
+      this.$store.commit('addToCar', goodsinfo)
     },
     beforeEnter(el) {
       el.style.transform = "translate(0,0)";
@@ -114,7 +122,7 @@ export default {
       const yDist = badgePositiom.top - ballPositiom.top;
 
       el.style.transform = `translate(${xDist}px , ${yDist}px)`;
-      el.style.transition = "all 1s cubic-bezier(.4, -0.3, 1, .68)";
+      el.style.transition = "all 0.5s cubic-bezier(.4, -0.3, 1, .68)";
       done();
     },
     afterEnter(el) {
