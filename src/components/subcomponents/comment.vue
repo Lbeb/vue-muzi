@@ -61,7 +61,7 @@ export default {
       //发表评论
       // 检验评论内容为空内容
       if (this.msg.trim().length === 0) {
-        return Toast("评论内容不能为空...");
+        return Toast("评论内容不能为空...")
       }
       // post 请求参数
       // 参数1： url 地址

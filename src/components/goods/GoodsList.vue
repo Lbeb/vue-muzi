@@ -1,6 +1,6 @@
 <template>
   <div class="goods-list">
-    <div class="goods-item" v-for="item in goodslist" :key="item.id">
+    <div class="goods-item" v-for="item in goodslist" :key="item.id"  @click="getGoodsInfo(item.id)">
       <img :src="item.img_url" />
       <h1 class="title">{{ item.title }}</h1>
       <div class="info">
@@ -41,6 +41,9 @@ export default {
     getMore() {
       this.pageindex++;
       this.getGoodsList();
+    },
+    getGoodsInfo(id) {  //使用js的形式进行路由导航
+      this.$router.push('/home/goodsinfo/' +id)
     }
   }
 };
