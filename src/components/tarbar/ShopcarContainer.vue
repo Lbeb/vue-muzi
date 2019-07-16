@@ -5,7 +5,9 @@
         <div class="mui-card-content">
           <div class="mui-card-content-inner goods-item">
             <!-- 开关 -->
-            <mt-switch></mt-switch>
+            <mt-switch 
+            v-model="$store.getters.getGoodsSelected[item.id]"
+            @change="selectedChanged(item.id,$store.getters.getGoodsSelected[item.id])"></mt-switch>
             <!-- 图片 -->
             <img :src="item.thumb_path" alt />
             <!-- 信息区域 -->
@@ -22,20 +24,24 @@
       </div>
 
       <!-- 结算区域 -->
-      <!-- <div class="mui-card">
-				<div class="mui-card-content">
-					<div class="mui-card-content-inner jiesuan">
-						<div class="left">
+      <div class="mui-card">
+        <div class="mui-card-content">
+          <div class="mui-card-content-inner jiesuan">
+            <div class="left">
               <p>总计（不含运费）</p>
               <p>
-                已勾选商品<span class="danger">{{ selectedcount }}</span>件，总价<span class="danger">￥{{ amount }}</span>
+                已勾选商品
+                <span class="red">{{ $store.getters.getGoodsCountAndAmount.count}}</span>件，总价
+                <span class="red">￥{{ $store.getters.getGoodsCountAndAmount.amount}}</span>
               </p>
             </div>
             <mt-button type="danger">去结算</mt-button>
-					</div>
-				</div>
-      </div>-->
+          </div>
+        </div>
+      </div>
     </div>
+
+    <p>{{ $store.getters.getGoodsSelected }}</p>
   </div>
 </template>
 
@@ -51,7 +57,7 @@ export default {
     numbox
   },
   created() {
-    this.getGoodsInfo()
+    this.getGoodsInfo();
   },
   methods: {
     getGoodsInfo() {
@@ -71,8 +77,12 @@ export default {
         });
     },
     remove(id, index) {
-      this.goodslist.splice(index,1)
-      this.$store.commit('removeFromCar',id)
+      this.goodslist.splice(index, 1);
+      this.$store.commit("removeFromCar", id);
+    },
+    selectedChanged(id, val) {
+      // console.log(id + '----' + val)
+      this.$store.commit("updateGoodsSelected", { id, selected: val });
     }
   }
 };
@@ -99,25 +109,24 @@ export default {
     .info {
       display: flex;
       flex-direction: column;
-      justify-content: space-between;    
-        .price {
-          color: red;
-          font-weight: bold;
-          font-size: 16px;       
+      justify-content: space-between;
+      .price {
+        color: red;
+        font-weight: bold;
+        font-size: 16px;
       }
     }
   }
-}
-
-.danger {
-  color: red;
-  font-weight: bold;
-  font-size: 16px;
 }
 
 .jiesuan {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  .red {
+    color: red;
+    font-weight: bold;
+    font-size: 16px;
+  }
 }
 </style>

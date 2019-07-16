@@ -1,7 +1,11 @@
 <template>
   <div class="app-container">
     <!-- 顶部 header 区域 -->
-    <mt-header fixed title="MUZI"></mt-header>
+    <mt-header fixed title="MUZI">
+      <span slot="left" @click="goBack" v-show="flag">
+        <mt-button icon="back">返回</mt-button>
+      </span>
+    </mt-header>
 
     <!-- 中间路由区域 -->
     <transition>
@@ -33,6 +37,30 @@
 </template>
 
 <script>
+export default {
+  data() {
+    return {
+      flag: false
+    }
+  },
+  created() {
+    this.flag = this.$route.path ==="/home" ? false : true
+  },
+  methods: {
+    goBack() {
+      this.$router.go(-1)
+    }
+  },
+  watch: {
+    "$route.path": function(newVal) {
+      if(newVal === "/home") {
+        this.flag = false
+      }else {
+        this.flag = true
+      }
+    }
+  }
+}
 </script>
 
 <style lang="less" scoped>
@@ -45,7 +73,7 @@
 // 切换动画
 .v-enter {
   opacity: 0;
-  transform: translate(100%)
+  transform: translate(100%);
 }
 .v-leave-to {
   opacity: 0;
@@ -57,7 +85,6 @@
 .v-leave-active {
   transition: all 0.5s ease;
 }
-
 
 .mui-bar-tab .my-tab-item.mui-active {
   color: #007aff;
